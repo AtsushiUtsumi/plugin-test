@@ -10,7 +10,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:plugin-test.helloWorld"
+    "onCommand:plugin-test.helloWorld",
+    "onCommand:plugin-test.helloWorld2"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -18,6 +19,10 @@
       {
         "command": "plugin-test.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "plugin-test.helloWorld2",
+        "title": "Hello World2"
       }
     ]
   },
