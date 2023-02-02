@@ -1,5 +1,5 @@
-import { stringify } from 'querystring';
 import * as vscode from 'vscode';
+import { sub } from "./sub";
 
 export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "plugin-test" is now active!');
@@ -18,7 +18,12 @@ export function activate(context: vscode.ExtensionContext) {
 			const text = document.getText(selection);// 選択範囲のテキストを取得
 			console.log(selection.start);
 			console.log(selection.end);
-			vscode.window.showInformationMessage(text);
+			vscode.window.showInformationMessage(sub(text));
+			editor.edit(
+				(editBuilder) => {
+					editBuilder.insert(new vscode.Position(0, 0), '挿入したいテキスト');
+				}
+			);
 		}
 	});
 
