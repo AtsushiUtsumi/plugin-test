@@ -1,3 +1,4 @@
+import { stringify } from 'querystring';
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -9,17 +10,20 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('plugin-test.helloWorld', () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from plugin-test!');
+		const message = String(vscode.workspace.isTrusted);
+		vscode.window.showInformationMessage(message);
 	});
 
 	context.subscriptions.push(disposable);
 
 	disposable = vscode.commands.registerCommand('plugin-test.helloWorld2', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World2 from plugin-test!');
 	});
+	context.subscriptions.push(disposable);
 
+	disposable = vscode.commands.registerCommand('plugin-test.helloWorld3', () => {
+		vscode.window.showInformationMessage('コマンドパレットで検索するのは「title」の方で、「command」を上記で登録する(そりゃそうか)');
+	});
 	context.subscriptions.push(disposable);
 }
 
