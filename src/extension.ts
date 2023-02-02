@@ -13,9 +13,11 @@ export function activate(context: vscode.ExtensionContext) {
 		const message = String(vscode.FileType);
 		const editor = vscode.window.activeTextEditor;
         if (editor) {
-            const document = editor.document;
-            const selection = editor.selection;
-			const text = document.getText(selection);
+            const document = editor.document;// テキスト全体取得
+            const selection = editor.selection;// 選択範囲取得
+			const text = document.getText(selection);// 選択範囲のテキストを取得
+			console.log(selection.start);
+			console.log(selection.end);
 			vscode.window.showInformationMessage(text);
 		}
 	});
