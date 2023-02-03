@@ -11,7 +11,9 @@ function search_class(code: string): vscode.Range[] {
 	let regexp = /t(e)(st(\d?))/g;
 	// const regexp = /class (Hello|World) {/g;
 	//const regexp = /class [\s\S]?$/g;
-	// これ改行含んでもOKなのかどうも「\s*」がミソっぽい。「.」と違って改行コードも含むらしい。
+	// これ改行含んでもOKなのかどうも「\s*」がミソっぽい。
+	// 「.」と違って改行コードも含むらしい。←といううわけでは無かった
+	// ブレース以外の全ての1文字「[^\{]」は正規表現チェッカーで確かめたがスペースや改行にマッチする
 	regexp = /class\s*([^\{]*)\{\s*.*static\s*void\s*main\s*\(\s*String\s*\[\]\s*[^\)]*\).*/g;
 	//regexp = /\s*static\s*void\s*main\s*\(\s*String\s*\[\]\s*[^\)]*\)/g;
 	regexp = /class\s*([^\{]*)\{\s*.*\}/g;
