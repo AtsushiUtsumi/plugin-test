@@ -1,6 +1,34 @@
 import * as vscode from 'vscode';
 import { sub } from "./sub";
 
+
+// クラスのコードの箇所の一覧を返す
+function search_class(code: string): vscode.Range[] {
+	
+	//console.log('内容:\n' + code);
+	
+	// クラスの正規表現パターン
+	let regexp = /t(e)(st(\d?))/g;
+	// const regexp = /class (Hello|World) {/g;
+	//const regexp = /class [\s\S]?$/g;
+	// これ改行含んでもOKなのかどうも「\s*」がミソっぽい。「.」と違って改行コードも含むらしい。
+	regexp = /class\s*([^\{]*)\{\s*.*static\s*void\s*main\s*\(\s*String\s*\[\]\s*[^\)]*\).*/g;
+	//regexp = /\s*static\s*void\s*main\s*\(\s*String\s*\[\]\s*[^\)]*\)/g;
+	regexp = /class\s*([^\{]*)\{\s*.*\}/g;
+	const str = 'test1test2';
+
+	const match = [...code.matchAll(regexp)];
+
+	const hits: vscode.Range[] = [];
+	for (let i = 0; i < match.length; i++) {
+		console.log(String(i+1) + '件目' + match[i][0]);
+		// const start = new vscode.Position(0, 0);
+		// const end = new vscode.Position(2, 10);
+		// hits.push(new vscode.Range(start, end));
+	}
+	return hits;
+}
+
 export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "plugin-test" is now active!');
 
@@ -13,6 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
 		const message = String(vscode.FileType);
 		const editor = vscode.window.activeTextEditor;
         if (editor) {
+			search_class(editor.document.getText());
             const document = editor.document;// テキスト全体取得
             const selection = editor.selection;// 選択範囲取得
 			const text = document.getText(selection);// 選択範囲のテキストを取得
