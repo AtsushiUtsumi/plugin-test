@@ -21,7 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.window.showInformationMessage(sub(text));
 			editor.edit(
 				(editBuilder) => {
-					editBuilder.insert(new vscode.Position(0, 0), '挿入したいテキスト');
+					editBuilder.insert(new vscode.Position(0, 0), sub(text));
 				}
 			);
 		}
